@@ -1,0 +1,14 @@
+{
+  "name": "coffeeweb",
+  "version": "1.0.0",
+  "description": "app for coffee shop",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
