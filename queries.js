@@ -1,5 +1,6 @@
 // Establishing connection with postgresql
 import { Pool } from 'pg';
+
 const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
@@ -126,3 +127,4 @@ export default {
     readStaff,
     delStaff
   }
+
