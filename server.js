@@ -1,8 +1,8 @@
 // Load required modules and functionality
-import express, { json } from 'express';
-import db from './queries';
+const express = require('express')
+const db = require('./queries');
 const app = express()
-app.use(json())
+app.use(express.json())
 
 // Sent get request to retrieve cakes and sandwiches
 app.get('/api/cakesandwich', db.readCakeSandwich)
