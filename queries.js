@@ -9,4 +9,3 @@ const pool = new Pool({
     max: 15,
     ssl: true
 })
-
