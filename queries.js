@@ -87,8 +87,8 @@ const delCakeSandwich = (req, res) => {
 
 // Query to add staff member to system
 const addStaff = (req, res) => {
-    const {name} = req.body
-    pool.query('INSERT INTO public."Staff" (name) VALUES ($1)', [name], (err) => {
+    const {name, password} = req.body
+    pool.query('INSERT INTO public."Staff" (name, password) VALUES ($1, $2)', [name, password], (err) => {
         if(err) {
             throw err
         }
