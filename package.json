@@ -4,12 +4,16 @@
   "description": "app for coffee shop",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "./node_modules/.bin/jasmine-node spec"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "express": "^4.16.4",
-    "pg": "^7.10.0"
+    "pg": "^7.10.0",
+    "request": "^2.88.0"
+  },
+  "devDependencies": {
+    "jasmine-node": "^1.16.2"
   }
 }

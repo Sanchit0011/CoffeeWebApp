@@ -4,6 +4,14 @@ const db = require('./queries');
 const app = express()
 app.use(express.json())
 
+app.get('/', function(req, res){
+    res.send('Hello World');
+  });
+
+exports.closeServer = function(){
+    server.close();
+};
+
 // Sent get request to retrieve cakes and sandwiches
 app.get('/api/cakesandwich', db.readCakeSandwich)
 
