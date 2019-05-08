@@ -75,8 +75,8 @@ const updateCakeSandwichStatus = (req, res) => {
 
 // Query to delete cake/sandwich status
 const delCakeSandwich = (req, res) => {
-    const name = parseInt(req.params.name)
-    pool.query('DELETE FROM public."Cakesandwich" where name = $1',[name], (err) => {
+    const name = (req.params.name)
+    pool.query('DELETE FROM public."Cakesandwich" where name like $1',[name], (err) => {
         if(err) {
             throw err
         }
