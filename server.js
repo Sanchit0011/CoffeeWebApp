@@ -1,7 +1,12 @@
+// Load required modules and functionality
 const express = require('express')
+const db = require('./queries');
 const app = express()
-const port = 3000
+app.use(express.json())
 
-app.get('/', (req, res) => res.send('Hello World!'))
+// Sent get request to retrieve staff information
+app.get('/api/staff/:name/:password', db.logStaff)
 
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+// Listening on defined port
+const port = process.env.PORT || 3000
+app.listen(port, () => console.log(`Listening on port ${port}...`))
