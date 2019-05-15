@@ -10,6 +10,24 @@ const pool = new Pool({
     ssl: true
 })
 
+
+// Query to login staff member to the system
+const logStaff = (req, res) => {
+    const name = (req.params.name)
+    const password = (req.params.password)
+    pool.query('SELECT * FROM public."Staff" where name = $1 and password = $2', [name, password], (err,result) => {
+        if(err) {
+            throw err
+        }
+        if(result.rowCount>0) {
+            res.status(200).send(result.rows)
+        }
+        else {
+            res.status(200).send('Invalid login details!')
+        }
+        
+
+ 
 // Query to insert order information in Order table 
 const addOrder = (req, res) => {
     const {quantity, size, name, status} = req.body
@@ -75,8 +93,8 @@ const updateCakeSandwichStatus = (req, res) => {
 
 // Query to delete cake/sandwich status
 const delCakeSandwich = (req, res) => {
-    const name = parseInt(req.params.name)
-    pool.query('DELETE FROM public."Cakesandwich" where name = $1',[name], (err) => {
+    const name = (req.params.name)
+    pool.query('DELETE FROM public."Cakesandwich" where name like $1',[name], (err) => {
         if(err) {
             throw err
         }
@@ -87,8 +105,8 @@ const delCakeSandwich = (req, res) => {
 
 // Query to add staff member to system
 const addStaff = (req, res) => {
-    const {name} = req.body
-    pool.query('INSERT INTO public."Staff" (name) VALUES ($1)', [name], (err) => {
+    const {name, password} = req.body
+    pool.query('INSERT INTO public."Staff" (name, password) VALUES ($1, $2)', [name, password], (err) => {
         if(err) {
             throw err
         }
@@ -117,6 +135,7 @@ const delStaff = (req, res) => {
         }
         
         res.status(200).json('Staff has been deleted')
+
     })
 }
 
@@ -146,13 +165,11 @@ const ordercomp = (req, res) => {
        
     })
 
-
-
-
 }
 
 // Export functions so that they can be used in server.js to build API's
 module.exports = {
+    logStaff,
     addOrder,
     addTime,
     addCakeSandwich,
@@ -164,3 +181,4 @@ module.exports = {
     delStaff,
     ordercomp
 }
+
