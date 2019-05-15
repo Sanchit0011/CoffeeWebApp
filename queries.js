@@ -9,6 +9,24 @@ const pool = new Pool({
     max: 15,
     ssl: true
 })
+
+
+// Query to login staff member to the system
+const logStaff = (req, res) => {
+    const name = (req.params.name)
+    const password = (req.params.password)
+    pool.query('SELECT * FROM public."Staff" where name = $1 and password = $2', [name, password], (err,result) => {
+        if(err) {
+            throw err
+        }
+        if(result.rowCount>0) {
+            res.status(200).send(result.rows)
+        }
+        else {
+            res.status(200).send('Invalid login details!')
+        }
+        
+
  
 // Query to insert order information in Order table 
 const addOrder = (req, res) => {
@@ -117,11 +135,13 @@ const delStaff = (req, res) => {
         }
         
         res.status(200).json('Staff has been deleted')
+
     })
 }
 
 // Export functions so that they can be used in server.js to build API's
 module.exports = {
+    logStaff,
     addOrder,
     addTime,
     addCakeSandwich,
