@@ -25,7 +25,8 @@ const logStaff = (req, res) => {
         else {
             res.status(200).send('Invalid login details!')
         }
-        
+    })
+}
 
  
 // Query to insert order information in Order table 
@@ -181,4 +182,3 @@ module.exports = {
     delStaff,
     ordercomp
 }
-
