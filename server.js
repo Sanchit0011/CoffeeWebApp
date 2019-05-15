@@ -10,3 +10,4 @@ app.get('/api/staff/:name/:password', db.logStaff)
 // Listening on defined port
 const port = process.env.PORT || 3000
 app.listen(port, () => console.log(`Listening on port ${port}...`))
+
