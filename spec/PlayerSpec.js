@@ -2,8 +2,30 @@ const request = require("request");
 const base_url = "http://localhost:3000/"
 jasmine.DEFAULT_TIMEOUT_INTERVAL =6000
 describe("Staff /api/staff", function() {
+  // Staff Login****************************
+  describe("Login staff /api/staff", function() {
+    it("returns status code 200", function(done) {
+      var nme = "halil"
+      var pswd = "halil1"
+      var getData = {
+        name : "halil",
+        password : "halil1"
+      }
+      var options = {
+        method : 'get',
+        body : getData,
+        url : base_url+"api/staff/"+nme+"/"+pswd,
+        json: true
+      }
+      request(options , function(error, response, body) {
+        expect(response.statusCode).toBe(200);
+        done();
+      });
+    });
+  });
 
-// read staff **********************
+
+// ********************read staff **********************
   // describe("GET /api/staff", function() {
   //   it("returns status code 200", function(done) {
   //     request.get(base_url+"api/staff", function(error, response, body) {
@@ -14,7 +36,7 @@ describe("Staff /api/staff", function() {
   // });
 
 
-// add staff *************************
+//******************* */ add staff *************************
   // describe("Add staff /api/staff", function() {
   //   it("returns status code 201", function(done) {
   //     var postData = {
@@ -54,26 +76,26 @@ describe("Staff /api/staff", function() {
 
   });
 
- describe("CakeSandwich /api/cakesandwich", function() {
-  jasmine.DEFAULT_TIMEOUT_INTERVAL =6000
-  //  Adding CakeSandwhich
-  it("Add CakeSandwich returns status code 201", function(done) {
-        var postData = {
-          name : "Chicken Roast",
-          status : "on deck"
-        }
-        var options = {
-          method : 'post',
-          body : postData,
-          url : base_url+"api/cakesandwich",
-          json: true
-        }
-        request(options , function(error, response, body) {
-          expect(response.statusCode).toBe(201);
-          done();
-        });
-      });
-    });
+//  describe("CakeSandwich /api/cakesandwich", function() {
+//   jasmine.DEFAULT_TIMEOUT_INTERVAL =6000
+//   //  Adding CakeSandwhich
+//   it("Add CakeSandwich returns status code 201", function(done) {
+//         var postData = {
+//           name : "Chicken Roast",
+//           status : "on deck"
+//         }
+//         var options = {
+//           method : 'post',
+//           body : postData,
+//           url : base_url+"api/cakesandwich",
+//           json: true
+//         }
+//         request(options , function(error, response, body) {
+//           expect(response.statusCode).toBe(201);
+//           done();
+//         });
+//       });
+//     });
 // GET all Cakesandwich ****************************
     // describe("CakeSandwich /api/cakesandwich", function() {
     //   it("Return all CakeSandwich, returns status code 200", function(done) {
@@ -170,26 +192,26 @@ describe("AddOrder ", function() {
   //   });
   //  });
   
-describe("Order complete  ", function() {
-    it("returns status code 201", function(done) {
-      var ID = 3
-      var status = "comp"
-      var postData = {
-        id : ID,
-        nwStatus : status
-      }
-      var options = {
-        method : 'put',
-        body : postData ,
-        url : base_url+"api/ordercomp/"+ID,
-        json: true
-      }
-      request(options, function(error, response, body) {
-        expect(response.statusCode).toBe(201);
-        done();
-      });
-    });
-   });
+// describe("Order complete  ", function() {
+//     it("returns status code 201", function(done) {
+//       var ID = 3
+//       var status = "comp"
+//       var postData = {
+//         id : ID,
+//         nwStatus : status
+//       }
+//       var options = {
+//         method : 'put',
+//         body : postData ,
+//         url : base_url+"api/ordercomp/"+ID,
+//         json: true
+//       }
+//       request(options, function(error, response, body) {
+//         expect(response.statusCode).toBe(201);
+//         done();
+//       });
+//     });
+//    });
 
 
 });
