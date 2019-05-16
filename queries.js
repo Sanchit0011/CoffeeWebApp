@@ -9,7 +9,7 @@ const pool = new Pool({
     max: 15,
     ssl: true
 })
- 
+//  ***************ORDER API*********************
 // Query to insert order information in Order table 
 const addOrder = (req, res) => {
     const {quantity, size, name, status} = req.body
@@ -35,7 +35,34 @@ const addTime = (req, res) => {
         res.status(201).send('Time has been added')
     })
 }
+// Order Complete
+const ordercomp = (req, res) => {
+    const id = parseInt(req.params.id)
+    console.log(id)
+    newStatus = "comp"
+    pool.query(' UPDATE public."Order" set time = time - ( SELECT time FROM public."Order" WHERE orderid = $1) where orderid != $1 ', [id], (err) => {
+        if(err) {
+            throw err
+        }
+        pool.query(' UPDATE public."Order" set status = $2 , time = 0 where orderid = $1 ', [id,newStatus], (err) => {
+            if(err) {
+                throw err
+            }
+        
+            pool.query(' UPDATE public."Order" set time = $1 WHERE time < 0 ',[1], (err) => {
+                if(err) {
+                    throw err
+                }
+            
+                res.status(201).send('Order completed')
+            })
+        
+        })
+       
+    })
 
+}
+// ******************************CAKESANDWICH API**********************
 // Query to add cake/sandwich information to Cakesandwich table
 const addCakeSandwich = (req, res) => {
     const {name, status} = req.body
@@ -84,6 +111,27 @@ const delCakeSandwich = (req, res) => {
         res.status(200).json('Cake/sandwich has been deleted')
     })
 }
+// **--------------------------------------------------------_****************************
+// ***************************STAFF API********************************************
+// Staff login Api
+
+const logStaff = (req, res) => {
+    const name = (req.params.name)
+    const password = (req.params.password)
+    pool.query('SELECT * FROM public."Staff" where name = $1 and password = $2', [name, password], (err,result) => {
+        if(err) {
+            throw err
+        }
+        if(result.rowCount>0) {
+            res.status(200).send(result.rows)
+        }
+        else {
+            res.status(200).send('Invalid login details!')
+        }
+    })
+}
+
+
 
 // Query to add staff member to system
 const addStaff = (req, res) => {
@@ -130,5 +178,9 @@ module.exports = {
     delCakeSandwich,
     addStaff,
     readStaff,
-    delStaff
+    delStaff,
+    logStaff,
+    ordercomp
 }
+// logStaff
+// ordercomp

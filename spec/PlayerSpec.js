@@ -169,5 +169,27 @@ describe("AddOrder ", function() {
   //     });
   //   });
   //  });
+  
+describe("Order complete  ", function() {
+    it("returns status code 201", function(done) {
+      var ID = 3
+      var status = "comp"
+      var postData = {
+        id : ID,
+        nwStatus : status
+      }
+      var options = {
+        method : 'put',
+        body : postData ,
+        url : base_url+"api/ordercomp/"+ID,
+        json: true
+      }
+      request(options, function(error, response, body) {
+        expect(response.statusCode).toBe(201);
+        done();
+      });
+    });
+   });
+
 
 });

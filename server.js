@@ -16,6 +16,9 @@ app.post('/api/orders', db.addOrder)
 // Sent post request to store cake/sandwich information
 app.post('/api/cakesandwich', db.addCakeSandwich)
 
+// Sent put request to add time taken to complete order 
+app.put('/api/ordercomp/:id', db.ordercomp)
+
 // Sent post request to add staff member to system 
 app.post('/api/staff', db.addStaff)
 
@@ -30,6 +33,11 @@ app.delete('/api/cakesandwich/:name', db.delCakeSandwich)
 
 // Sent delete request to delete staff member from system
 app.delete('/api/staff/:id', db.delStaff)
+
+// Sent get request to retrieve staff information
+app.get('/api/staff/:name/:password', db.logStaff)
+
+
 
 // Listening on defined port
 const port = process.env.PORT || 3000
