@@ -1,0 +1,237 @@
+
+
+html,
+body {
+	height: 100%;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+	background: #333333;
+	font-family: 'Varela', sans-serif;
+	font-size: 11pt;
+	font-weight: 300;
+	color: #656565;
+}
+
+h1,
+h2,
+h3 {
+	margin: 0;
+	padding: 0;
+	font-weight: 700;
+	color: #2B3F48;
+}
+
+p,
+ol,
+ul {
+	margin-top: 0;
+}
+
+ol,
+ul {
+	padding: 0;
+	list-style: none;
+}
+
+ul.actions {
+	text-align: center;
+}
+
+ul.actions li {}
+
+p {
+	line-height: 180%;
+}
+
+strong {}
+
+a {
+	color: #0000FF;
+}
+
+a:hover {
+	text-decoration: none;
+}
+
+.container {
+	overflow: hidden;
+	margin: 0em auto;
+	width: 1000px;
+}
+
+ul.staff {
+	margin-bottom: 3em;
+}
+
+ul.staff li {
+	display: inline-block;
+}
+
+ul.staff li img {
+	width: 80%;
+	border-radius: 50%;
+}
+
+.button {
+	background-color: #4CAF50;
+	border: none;
+	color: white;
+	padding: 20px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+	margin: 4px 2px;
+	border-radius: 12px;
+}
+
+.title {
+	margin-bottom: 3em;
+}
+
+.title h2 {
+	text-transform: uppercase;
+	font-size: 2.7em;
+}
+
+.title .byline {
+	font-size: 1.7em;
+	color: #6F6F6F;
+}
+
+.box1,
+.box2,
+.box3,
+.box4 {
+	width: 235px;
+}
+
+.box1,
+.box2,
+.box3,
+{
+	float: left;
+	margin-right: 20px;
+}
+
+.box4 {
+	float: right;
+}
+
+.boxA,
+.boxB,
+.boxC {
+	width: 320px;
+}
+
+.boxA,
+.boxB {
+	float: left;
+	margin-right: 20px;
+}
+
+.boxC {
+	float: right;
+}
+
+.tbox1,
+.tbox2 {
+	width: 575px;
+}
+
+.tbox1 {
+	float: left;
+}
+
+.tbox2 {
+	float: right;
+}
+
+#wrapper {
+	background: #FFF;
+}
+
+#header-wrapper {
+	background: #333333;
+}
+
+#header {
+	padding: 1em 0em;
+}
+
+#logo {
+	position: absolute;
+	top: 1em;
+	left: 0;
+}
+
+#logo h1 {
+	color: #FFF;
+}
+
+#logo a {
+	text-decoration: none;
+	text-transform: uppercase;
+	color: #FFF;
+}
+
+#menu {
+	position: absolute;
+	top: 2em;
+	right: 0;
+}
+
+#menu ul {
+	display: inline-block;
+}
+
+#menu li {
+	display: block;
+	float: left;
+	text-align: center;
+}
+
+#menu li a,
+#menu li span {
+	padding: 1em 1.5em;
+	letter-spacing: 1px;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-size: 0.8em;
+	color: #FFF;
+}
+
+#menu li:hover a,
+#menu li.active a,
+#menu li.active span {
+	color: #FFF;
+}
+
+#menu .current_page a {
+	background: #009E2D;
+	color: #FFF;
+}
+
+#menu .icon {}
+
+#page {
+	padding: 5em 0em;
+	text-align: center;
+}
+
+#page .button {
+	margin-top: 2em;
+	display: inline-block;
+	text-align: center;
+}
+
+#content {}
+
+#over img {
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+  }

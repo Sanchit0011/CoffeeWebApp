@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>CoffeeWeb</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/css/bootstrap.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.7.8/angular.min.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/index.js"></script>
+    <link rel="stylesheet" href="/css/default.css" />
+</head>
+
+<body ng-app="coffeeapp">
+    <div ng-controller="indexController">
+        <a href="" data-toggle="modal" data-target="#myModal" id="myModalShower" style="display:none"></a>
+        <a href="" data-toggle="modal" data-target="#myModalLoading" id="myModalShowerl" style="display:none"></a>
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">{{modalHeader}}</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>{{modalBody}}</p>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="myModalLoading" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content" style="background: transparent;">
+                    <div class="modal-header">
+                        <h4 class="modal-title" style="background: white;">Placing Order . . .</h4>
+                    </div>
+                    <div id="over">
+                        <img src="/img/coffeeLoading.gif" alt="Loading . . ." style="width:200px;height:200px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="wrapper">
+            <div id="header-wrapper">
+                <div id="header" class="container">
+                    <div id="logo">
+                        <h1><a href="#">Coffeeweb</a></h1>
+
+                    </div>
+                    <div><h3 style="color: cadetblue;">Welcome Customer</h3></div>
+                    <div style="float: right">
+                        <form ng-init="login.id='';login.pass=''">
+                            ID
+                            <input type="text" ng-model="login.id" required>
+                            PASSWORD
+                            <input type="text" ng-model="login.pass" required>
+                            <button class="btn" type="submit" ng-click="goStaff(login)"> login Manager/Staff </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <table class="table table-responsive table-striped table-hover table-condensed">
+                            <caption>Drinks Menu</caption>
+                            <thead>
+                                <th>Name</th>
+                                <th>quantity</th>
+                                <th>size</th>
+                                <th>price</th>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <form>
+                                        <td ng-init="hc.price=0; hc.quantity=1; hc.name='Hot Coffee'; hc.time=1">Hot
+                                            Coffee</td>
+                                        <td><input type="number" style="width: 50px;" ng-model="hc.quantity"
+                                                ng-change="hc.tprice=hc.price*hc.quantity" min=1 required></td>
+                                        <td> <label class="radio-inline">
+                                                <input type="radio" name="hc"
+                                                    ng-click="hc.price=1; hc.size='Small'; hc.tprice=hc.price*hc.quantity"
+                                                    required>Small
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="hc"
+                                                    ng-click="hc.price=3; hc.size='Medium'; hc.tprice=hc.price*hc.quantity"
+                                                    required>Medium
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="hc"
+                                                    ng-click="hc.price=5; hc.size='Large'; hc.tprice=hc.price*hc.quantity"
+                                                    required>Large
+                                            </label>
+                                        </td>
+                                        <td>${{hc.price*hc.quantity}}</td>
+                                        <td><button type="submit" class="btn" ng-click="buyItem(hc)">buy</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form>
+                                        <td ng-init="es.price=0; es.quantity=1; es.name='Espresso'; es.time=1">Espresso
+                                        </td>
+                                        <td><input type="number" style="width: 50px;" ng-model="es.quantity"
+                                                ng-change="es.tprice=es.price*es.quantity" min=1></td>
+                                        <td><label class="radio-inline">
+                                                <input type="radio" name="es"
+                                                    ng-click="es.price=1; es.size='Small'; es.tprice=es.price*es.quantity"
+                                                    required>Small
+                                            </label></td>
+                                        <td>${{es.price*es.quantity}}</td>
+                                        <td><button class="btn" ng-click="buyItem(es)">buy</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form>
+                                        <td
+                                            ng-init="des.price=0; des.quantity=1; des.name='Double Espress'; des.time=1">
+                                            Double Espresso
+                                        </td>
+                                        <td><input type="number" style="width: 50px;" ng-model="des.quantity"
+                                                ng-change="des.tprice=des.price*des.quantity" min=1></td>
+                                        <td><label class="radio-inline">
+                                                <input type="radio" name="des"
+                                                    ng-click="des.price=1; des.size='Small'; des.tprice=des.price*des.quantity"
+                                                    required>Small
+                                            </label></td>
+                                        <td>${{des.price*des.quantity}}</td>
+                                        <td><button class="btn" ng-click="buyItem(des)">buy</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form>
+                                        <td ng-init="la.price=0; la.quantity=1; la.name='Latte'; la.time=1">Latte
+                                        </td>
+                                        <td><input type="number" style="width: 50px;" ng-model="la.quantity"
+                                                ng-change="la.tprice=la.price*la.quantity" min=1></td>
+                                        <td><label class="radio-inline">
+                                                <input type="radio" name="la"
+                                                    ng-click="la.price=1; la.size='Large'; la.tprice=la.price*la.quantity"
+                                                    required>Large
+                                            </label></td>
+                                        <td>${{la.price*la.quantity}}</td>
+                                        <td><button class="btn" ng-click="buyItem(la)">buy</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form>
+                                        <td ng-init="cp.price=0; cp.quantity=1; cp.name='Cappuccino'; cp.time=1">
+                                            Cappuccino</td>
+                                        <td><input type="number" style="width: 50px;" ng-model="cp.quantity"
+                                                ng-change="cp.tprice=cp.price*cp.quantity" min=1 required></td>
+                                        <td>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="cp"
+                                                    ng-click="cp.price=3; cp.size='Medium'; cp.tprice=cp.price*cp.quantity"
+                                                    required>Medium
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="cp"
+                                                    ng-click="cp.price=5; cp.size='Large'; cp.tprice=cp.price*cp.quantity"
+                                                    required>Large
+                                            </label>
+                                        </td>
+                                        <td>${{cp.price*cp.quantity}}</td>
+                                        <td><button type="submit" class="btn" ng-click="buyItem(cp)">buy</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form>
+                                        <td ng-init="lb.price=0; lb.quantity=1; lb.name='Long Black'; lb.time=1">Long
+                                            Black</td>
+                                        <td><input type="number" style="width: 50px;" ng-model="lb.quantity"
+                                                ng-change="lb.tprice=lb.price*lb.quantity" min=1 required></td>
+                                        <td>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="lb"
+                                                    ng-click="lb.price=3; lb.size='Medium'; lb.tprice=lb.price*lb.quantity"
+                                                    required>Medium
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="lb"
+                                                    ng-click="lb.price=5; lb.size='Large'; lb.tprice=lb.price*lb.quantity"
+                                                    required>Large
+                                            </label>
+                                        </td>
+                                        <td>${{lb.price*lb.quantity}}</td>
+                                        <td><button type="submit" class="btn" ng-click="buyItem(lb)">buy</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form>
+                                        <td ng-init="hcc.price=0; hcc.quantity=1; hcc.name='Hot Chocolate'; hcc.time=1">
+                                            Hot Chocolate</td>
+                                        <td><input type="number" style="width: 50px;" ng-model="hcc.quantity"
+                                                ng-change="hcc.tprice=hcc.price*hcc.quantity" min=1 required></td>
+                                        <td>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="hcc"
+                                                    ng-click="hcc.price=3; hcc.size='Medium'; hcc.tprice=hcc.price*hcc.quantity"
+                                                    required>Medium
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="hcc"
+                                                    ng-click="hcc.price=5; hcc.size='Large'; hcc.tprice=hcc.price*hcc.quantity"
+                                                    required>Large
+                                            </label>
+                                        </td>
+                                        <td>${{hcc.price*hcc.quantity}}</td>
+                                        <td><button type="submit" class="btn" ng-click="buyItem(hcc)">buy</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form>
+                                        <td ng-init="ec.price=0; ec.quantity=1; ec.name='Earl Grey'; ec.time=1">Earl
+                                            Grey</td>
+                                        <td><input type="number" style="width: 50px;" ng-model="ec.quantity"
+                                                ng-change="ec.tprice=ec.price*ec.quantity" min=1 required></td>
+                                        <td>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="ec"
+                                                    ng-click="ec.price=3; ec.size='Medium'; ec.tprice=ec.price*ec.quantity"
+                                                    required>Medium
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="ec"
+                                                    ng-click="ec.price=5; ec.size='Large'; ec.tprice=ec.price*ec.quantity"
+                                                    required>Large
+                                            </label>
+                                        </td>
+                                        <td>${{ec.price*ec.quantity}}</td>
+                                        <td><button type="submit" class="btn" ng-click="buyItem(ec)">buy</button></td>
+                                    </form>
+                                </tr>
+                                <tr>
+                                    <form>
+                                        <td ng-init="as.price=0; as.quantity=1; as.name='Assam'; as.time=1">Assam</td>
+                                        <td><input type="number" style="width: 50px;" ng-model="as.quantity"
+                                                ng-change="as.tprice=as.price*as.quantity" min=1 required></td>
+                                        <td>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="as"
+                                                    ng-click="as.price=3; as.size='Medium'; as.tprice=as.price*as.quantity"
+                                                    required>Medium
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="as"
+                                                    ng-click="as.price=5; as.size='Large'; as.tprice=as.price*as.quantity"
+                                                    required>Large
+                                            </label>
+                                        </td>
+                                        <td>${{as.price*as.quantity}}</td>
+                                        <td><button type="submit" class="btn" ng-click="buyItem(as)">buy</button></td>
+                                    </form>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-sm-3">
+                        <table class="table table-responsive table-striped table-hover table-condensed" ng-init="getCakeSand()">
+                            <caption>Food Menu</caption>
+                            <thead>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="food in cakesands">
+                                    <td ng-init="food.price=5; food.quantity=1; food.time=5; food.quantity=1; food.tprice=5; food.isFood=true">
+                                        {{food.name}}</td>
+                                    <td><input type="number" style="width: 50px;" ng-disabled="food.status=='sold out' " ng-model="food.quantity" ng-change="food.tprice=food.price*food.quantity" min=1 required></td>
+                                    <td>${{food.tprice}}</td>
+                                    <td >{{food.status}}</td>
+                                    <td ng-if="food.status=='on deck' "><button type="submit" class="btn" ng-click="buyItem(food)">buy</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <table class="table table-responsive table-striped table-hover table-condensed" ng-init="getAllOrders()">
+                            <caption>Order Queue</caption>
+                            <thead>
+                                <th>Orderid</th>
+                                <th>Name</th>
+                                <th>Quantity</th>
+                                <th>Status</th>
+                                <th>Size</th>
+                                <th>Time</th>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="order in orders">
+                                    <td>{{order.orderid}}</td>
+                                    <td>{{order.name}}</td>
+                                    <td>{{order.quantity}}</td>
+                                    <td>{{order.status}}</td>
+                                    <td>{{order.size}}</td>
+                                    <td>{{order.time}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+</body>
+
+</html>
