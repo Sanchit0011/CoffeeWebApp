@@ -1,21 +1,38 @@
 app.controller('indexController', function ($scope, $http, $q, $timeout) {
 
+window.addEventListener('online', () => location.reload());
+window.addEventListener('offline', () => document.write("No Internet access"));
 
     $scope.addcakeSandNew = function (cakeSandNew) {
 
-        $http({
-            method: 'POST',
-            url: "/api/cakesandwich",
-            data: cakeSandNew
-        }).then(function (response) {
-            $scope.modalHeader = "Notification"
-            $scope.modalBody = response.data;
-            angular.element('#myModalShower').trigger('click');
-            $scope.cakeSandNew.name = "";
-            $scope.cakeSandNew.status = "";
-            $scope.getCakeSand();
-        })
+        var alreadyExist = true;
 
+        for (i in $scope.cakesands) {
+            if ($scope.cakesands[eval(i)].name == cakeSandNew.name) {
+                alreadyExist = false;
+                break;
+            }
+        }
+
+        if (alreadyExist) {
+            $http({
+                method: 'POST',
+                url: "/api/cakesandwich",
+                data: cakeSandNew
+            }).then(function (response) {
+                $scope.modalHeader = "Notification"
+                $scope.modalBody = response.data;
+                angular.element('#myModalShower').trigger('click');
+                $scope.cakeSandNew.name = "";
+                $scope.cakeSandNew.status = "";
+                $scope.getCakeSand();
+            })
+        } else {
+
+            $scope.modalHeader = "Error"
+            $scope.modalBody = cakeSandNew.name + " already Exist";
+            angular.element('#myModalShower').trigger('click');
+        }
     };
 
     $scope.addStaff = function (staffNewData) {
@@ -70,12 +87,15 @@ app.controller('indexController', function ($scope, $http, $q, $timeout) {
     };
 
 
-    $scope.updateCakeSand = function(myid,myname,mystatus) {
+    $scope.updateCakeSand = function (myid, myname, mystatus) {
         if (myid && myname && mystatus)
             $http({
                 method: 'PUT',
-                url: "http://localhost:3000/api/cakesandwich/"+myid,
-                data:{name:myname,status:mystatus}
+                url: "http://localhost:3000/api/cakesandwich/" + myid,
+                data: {
+                    name: myname,
+                    status: mystatus
+                }
             }).then(function (response) {
                 $scope.modalHeader = "Notification";
                 $scope.modalBody = response.data;

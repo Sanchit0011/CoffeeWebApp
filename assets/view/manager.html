@@ -103,7 +103,7 @@
                                     <td>{{staff.id}}</td>
                                     <td>{{staff.name}}</td>
                                     <td>{{staff.password}}</td>
-                                    <td> <button ng-click="delStaff(staff.id)" class="btn">Delete</button>
+                                    <td> <button ng-click="delStaff(staff.id)" class="btn" ng-disabled="staff.name == 'manager' ">Delete</button>
                                     </td>
                                 </tr>
                             </tbody>
